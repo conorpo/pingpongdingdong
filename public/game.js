@@ -1,3 +1,28 @@
+var myCanvas = document.getElementById("myCanvas");
+myCanvas.width = 1000;
+myCanvas.height = 500;
+var ctx = myCanvas.getContext('2d');
+
+let keys = {
+  "ArrowDown":0,
+  "ArrowUp":0
+}
+document.addEventListener("keydown",(evt) => {
+  if(evt.key == "ArrowDown"){
+    keys.ArrowDown = 1;
+  }else if(evt.key == "ArrowUp"){
+    keys.ArrowUp = -1;
+  }
+})
+
+document.addEventListener("keyup",(evt) => {
+  keys[evt.key] = 0;
+})
+
+setInterval(function(){
+  socket.emit("input", (keys.ArrowDown+keys.ArrowUp));
+},1000/60)
+
 let socket = io();
 
 socket.on('connect', function(){
@@ -8,7 +33,22 @@ socket.on('connect', function(){
     }
   })
   socket.on('found', function(id, username){
-    document.write("Found a game with " + username + " in Game ID " + id);
+    socket.on('update', function(ball, a, b, pingA, pingB, callback){
+      ctx.clearRect(0,0,1000,500);
+
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, 10, 0, 2*Math.PI);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillRect(30, a-50, 20, 100);
+      ctx.fillRect(950, b-50, 20, 100);
+
+      console.clear();
+      console.log(pingA, pingB)
+
+      callback();
+    });
   })
 });
 
