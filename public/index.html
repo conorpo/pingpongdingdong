@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>afadsfasdfafasdf
+<html>
+  <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Ping Pong Ding Dong</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <canvas id="myCanvas"></canvas>
 
+    <!-- Luis put input and button here -->
+
+
+    <div class="join">
+      <form action="/game.html">
+        <input class="username" placeholder="User Name" type = "text" id="username">
+        <input class="submit" type="submit" value="JOIN">
+      </form>
+    </div>
+
+    <script>
+      var myCanvas = document.getElementById("myCanvas");
+      myCanvas.width = 1000;
+      myCanvas.height = 500;
+      var ctx = myCanvas.getContext('2d');
+
+      var interval = setInterval(draw,20);
+
+      var strokeRightXValue = 500;
+      var strokeLeftXValue = 500;
+
+      function draw(){
+        //Clear Canvas
+        ctx.clearRect(0,0,1000,500);
+
+        //Right Out Title
+        ctx.fillStyle = "black"
+        ctx.font = "72px Courier";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("ping pong ding dong", 500, 250);
+
+
+        if(strokeRightXValue < 960){
+        strokeRightXValue += 2;
+        }
+
+        if(strokeLeftXValue > 40){
+        strokeLeftXValue  -= 2;
+        }
+
+        //Cover up stuff
+        ctx.fillStyle = "white";
+        ctx.fillRect(0,0, strokeLeftXValue, 325);
+        ctx.fillRect(strokeRightXValue,0, 1000, 325);
+
+        //Add the black bars
+        ctx.beginPath();
+        ctx.lineWidth = 6;
+        ctx.moveTo(strokeRightXValue,175);
+        ctx.lineTo(strokeRightXValue,325);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineWidth = 6;
+        ctx.moveTo(strokeLeftXValue,175);
+        ctx.lineTo(strokeLeftXValue,325);
+        ctx.stroke();
+
+        if(strokeRightXValue >= 960){
+          clearInterval(interval)
+        }
+      }
+    </script>
   </body>
 </html>

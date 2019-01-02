@@ -1,0 +1,57 @@
+canvas{
+  margin-left:15%;
+  border:solid;
+  margin-top:15vh;
+  width:70vw;
+  height:35vw;
+}
+
+body{
+  margin:0;
+}
+
+.join{
+  margin: 8px;
+  width: 70.5vw;
+  margin-left:15vw;
+  height: 80px;
+  border:solid;
+  box-sizing: border-box;
+}
+
+.username{
+  margin-top: 50%;
+  float: left;
+  height: 30px;
+  width: 75%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+
+}
+
+
+.submit{
+  padding: 15px 25px;
+  font-size:24px;
+  text-align:center;
+  outline: none;
+  color: white;
+  font-family:commando;
+  background-color: orangered;
+  height:80px;
+  margin-top:10px;
+  width: 25%;
+
+}
+
+.submit:hover{
+  cursor: pointer;
+}
+
+.submit:active{
+  border-color: #aaa;
+  box-shadow:0 0 8px 0 #aaa;
+}
