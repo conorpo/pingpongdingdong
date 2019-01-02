@@ -70,11 +70,12 @@ class Game{
     this.ball.y+=this.ball.dy;
 
     const time = process.hrtime();
+    let parent = this;
     this.A.socket.emit("update",this.ball, this.A.y, this.B.y, this.pingA, this.pingB, function(){
-      this.pingA = Math.round(process.hrtime(time)[1]/1000000)
+      parent.pingA = Math.round(process.hrtime(time)[1]/1000000)
     });
     this.B.socket.emit("update",this.ball, this.A.y, this.B.y, this.pingA, this.pingB, function(){
-      this.pingB = Math.round(process.hrtime(time)[1]/1000000)
+      parent.pingB = Math.round(process.hrtime(time)[1]/1000000)
     });
   }
 
