@@ -18,8 +18,8 @@ class Game{
   constructor(personA, personB, id){
     this.A = personA;
     this.B = personB;
-    personA.join(newGame).emit("found",id, personB.username);
-    personB.join(newGame).emit("found",id, personA.username);
+    personA.join(id).emit("found",id, personB.username);
+    personB.join(id).emit("found",id, personA.username);
     console.log("New Game between " + personA.username + " and " + personB.username);
   }
 }
@@ -34,6 +34,9 @@ io.on('connection',(socket) => {
       socket.username = username;
       people.push(socket);
       checkGame();
+    })
+    socket.on('disconnect', () => {
+      people.splice(people.indexOf(socket),1);
     })
 });
 
