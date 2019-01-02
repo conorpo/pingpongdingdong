@@ -27,6 +27,7 @@ class Game{
 io.on('connection',(socket) => {
     console.log("New connection: " + socket.id);
     socket.on("queue", (username, callback) => {
+      console.log("New queue " + username)
       if(!isRealString(username)){
             return callback('Name is required, and must be less than 20 chars long');
       };
