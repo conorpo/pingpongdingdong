@@ -1,7 +1,7 @@
 let socket = io();
 
 socket.on('connect', function(){
-  socket.emit('queue', deparam(window.location.search).name , function(err){
+  socket.emit('queue', deparam(window.location.search).username , function(err){
     if(err){
       alert(err);
       window.location.href = "/";
