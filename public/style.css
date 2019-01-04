@@ -1,6 +1,7 @@
 canvas{
   margin-left:15%;
   border:solid;
+  box-sizing:border-box;
   margin-top:15vh;
   width:70vw;
   height:35vw;
@@ -15,43 +16,78 @@ body{
   width: 70.5vw;
   margin-left:15vw;
   height: 80px;
-  border:solid;
+
   box-sizing: border-box;
 }
 
 .username{
   margin-top: 50%;
   float: left;
-  height: 30px;
+  height: 80px;
   width: 75%;
-  border: 2px solid #aaa;
-  border-radius: 4px;
-  margin: 8px 0;
+  border: 2px solid #494949;
+  margin: 10px 0;
   outline: none;
   box-sizing: border-box;
-
+  font-family:'Roboto', sans-serif;
+  font-size: 30px;
+  padding-left: 6px;
+  border-right:none;
 }
 
 
 .submit{
-  padding: 15px 25px;
+
   font-size:24px;
   text-align:center;
-  outline: none;
-  color: white;
-  font-family:commando;
-  background-color: orangered;
+  text-transform: uppercase;
+  border:2px solid #494949;
+  color: #494949;
+  font-family:'Roboto', sans-serif;
+  background: #ffffff;
   height:80px;
   margin-top:10px;
   width: 25%;
+  display: inline-block;
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+
 
 }
 
 .submit:hover{
+  transform: scale(1.1);
   cursor: pointer;
+  background-color: green;
+  color:white;
 }
 
-.submit:active{
-  border-color: #aaa;
-  box-shadow:0 0 8px 0 #aaa;
+.queue{
+  box-sizing:border-box;
+  margin-left: 15%;
+  background: #009933;
+  color: white;
+  padding: 10px 25px;
+  display: inline-block;
+  width: 70vw;
+  height: 80px;
+  border-radius: 6px;
+  border: 2px solid #494949;
+
+  text-align: center;
+  font-family:'Roboto', sans-serif;
+  font-size: 50px;
+  font-weight:700;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+
+}
+
+.finding{
+  background: orange;
+}
+
+.found{
+  background: green;
+  border:1px double black;
 }

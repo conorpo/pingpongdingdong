@@ -3,10 +3,17 @@ myCanvas.width = 1000;
 myCanvas.height = 500;
 var ctx = myCanvas.getContext('2d');
 
-let keys = {
+var keys = {
   "ArrowDown":0,
   "ArrowUp":0
 }
+
+var soundFiles = {
+  "roof" : new Sound("assets/roof.ogg"),
+  "paddle": new Sound("assets/paddle.ogg"),
+  "score": new Sound("assets/score.ogg")
+}
+
 document.addEventListener("keydown",(evt) => {
   if(evt.key == "ArrowDown"){
     keys.ArrowDown = 1;
@@ -19,33 +26,42 @@ document.addEventListener("keyup",(evt) => {
   keys[evt.key] = 0;
 })
 
+var socket = io();
+
 setInterval(function(){
   socket.emit("input", (keys.ArrowDown+keys.ArrowUp));
 },1000/60)
 
-let socket = io();
-
+const username = deparam(window.location.search).username;
 socket.on('connect', function(){
-  socket.emit('queue', deparam(window.location.search).username , function(err){
+  socket.emit('queue',  username , function(err){
     if(err){
       alert(err);
       window.location.href = "/";
     }
   })
   socket.on('found', function(id, username){
-    socket.on('update', function(ball, a, b, pingA, pingB, callback){
+    socket.on('update', function(puck, a, b, pingA, pingB, score, aname, bname, sounds, callback){
+
+      sounds.forEach(sound => {
+        console.log(sound);
+        console.log(soundFiles[sound]);
+        soundFiles[sound].play()}
+      );
       ctx.clearRect(0,0,1000,500);
 
-      ctx.beginPath();
-      ctx.arc(ball.x, ball.y, 10, 0, 2*Math.PI);
-      ctx.closePath();
-      ctx.fill();
+      ctx.fillRect(puck.x-5,puck.y-5,10,10);
 
-      ctx.fillRect(30, a-50, 20, 100);
-      ctx.fillRect(950, b-50, 20, 100);
+      ctx.fillRect(45, a-50, 5, 100);
+      ctx.fillRect(950, b-50, 5, 100);
 
-      console.clear();
-      console.log(pingA, pingB)
+      //Draw score here with ctx.fillText , use the score variable
+      ctx.font  = "16px Arial";
+      ctx.fillStyle = "black";
+      ctx.textAlign = "start";
+      ctx.fillText(aname + ": " + score.A, 40, 480);
+      ctx.textAlign = "end";
+      ctx.fillText(bname + ": " + score.B, 950, 480);
 
       callback();
     });
@@ -66,3 +82,18 @@ function deparam(uri){
       );
     return queryString;
 };
+
+function Sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+} 
